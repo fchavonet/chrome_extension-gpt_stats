@@ -1,0 +1,9 @@
+{
+	"name": "GPT Stats",
+	"description": "Curious about how much you use ChatGPT? This extension gives you quick and clean stats on your usage, right in your browser.",
+	"version": "1.0",
+	"manifest_version": 3,
+	"action": {
+		"default_popup": "popup/popup.html"
+	}
+}
