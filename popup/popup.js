@@ -5,7 +5,11 @@
 // Tags to which the theme class will be applied.
 const targetedTags = [
 	"body",
-	"main"
+	"header",
+	"main",
+	".card",
+	".mute",
+	"footer"
 ];
 
 // Apply or remove the "dark" class on each targeted element.
@@ -96,13 +100,14 @@ function updateTotalTimer() {
 	});
 }
 
-// Compute daily and monthly average in hours (rounded).
+// Compute daily, weekly and monthly average in hours (rounded).
 function calculateAverages(stats) {
 	const now = new Date();
 	const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
 	let totalSeconds = 0;
 	let activeDays = 0;
+	let activeWeeks = {};
 	let activeMonths = {};
 
 	for (const dateKey in stats) {
@@ -119,20 +124,34 @@ function calculateAverages(stats) {
 			activeDays += 1;
 
 			const year = entryDate.getFullYear();
-			const month = entryDate.getMonth();
-			const monthKey = year + "-" + String(month).padStart(2, "0");
+			const month = entryDate.getMonth() + 1;
 
-			if (!activeMonths[monthKey]) {
-				activeMonths[monthKey] = true;
+			let monthStr = String(month);
+
+			if (month < 10) {
+				monthStr = "0" + month;
 			}
+
+			const monthKey = year + "-" + monthStr;
+			activeMonths[monthKey] = true;
+
+			const weekKey = getWeekKey(entryDate);
+			activeWeeks[weekKey] = true;
 		}
 	}
 
 	let daily = 0;
+	let weekly = 0;
 	let monthly = 0;
 
 	if (activeDays > 0) {
 		daily = Math.round(totalSeconds / activeDays / 3600);
+	}
+
+	const numberOfWeeks = Object.keys(activeWeeks).length;
+
+	if (numberOfWeeks > 0) {
+		weekly = Math.round(totalSeconds / numberOfWeeks / 3600);
 	}
 
 	const numberOfMonths = Object.keys(activeMonths).length;
@@ -143,25 +162,71 @@ function calculateAverages(stats) {
 
 	return {
 		daily: daily,
+		weekly: weekly,
 		monthly: monthly
 	};
+}
+
+// Get Monday key for weekly stats.
+function getWeekKey(date) {
+	const tmp = new Date(date);
+	tmp.setHours(0, 0, 0, 0);
+
+	const day = tmp.getDay();
+	let diff;
+
+	if (day === 0) {
+		diff = -6;
+	} else {
+		diff = 1 - day;
+	}
+
+	tmp.setDate(tmp.getDate() + diff);
+
+	const year = tmp.getFullYear();
+	const month = tmp.getMonth() + 1;
+	const dayOfMonth = tmp.getDate();
+
+	let monthStr = String(month);
+
+	if (month < 10) {
+		monthStr = "0" + month;
+	}
+
+	let dayStr = String(dayOfMonth);
+
+	if (dayOfMonth < 10) {
+		dayStr = "0" + dayOfMonth;
+	}
+
+	return year + "-" + monthStr + "-" + dayStr;
 }
 
 // Update average displays in the popup (rounded hours).
 function updateAverages() {
 	chrome.runtime.sendMessage("getTimerUsage", function (response) {
-		const stats = response.dailyUsage || {};
+		let stats = {};
+
+		if (response && response.dailyUsage) {
+			stats = response.dailyUsage;
+		}
+
 		const averages = calculateAverages(stats);
 
 		const averageDailyDisplay = document.getElementById("daily-average");
+		const averageWeeklyDisplay = document.getElementById("weekly-average");
 		const averageMonthlyDisplay = document.getElementById("monthly-average");
 
 		if (averageDailyDisplay) {
-			averageDailyDisplay.textContent = averages.daily + " hours";
+			averageDailyDisplay.textContent = averages.daily;
+		}
+
+		if (averageWeeklyDisplay) {
+			averageWeeklyDisplay.textContent = averages.weekly;
 		}
 
 		if (averageMonthlyDisplay) {
-			averageMonthlyDisplay.textContent = averages.monthly + " hours";
+			averageMonthlyDisplay.textContent = averages.monthly;
 		}
 	});
 }
