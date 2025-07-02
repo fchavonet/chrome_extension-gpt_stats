@@ -7,8 +7,8 @@ const targetedTags = [
 	"body",
 	"header",
 	"main",
-	".card",
 	".mute",
+	".card",
 	"footer"
 ];
 
@@ -231,10 +231,140 @@ function updateAverages() {
 	});
 }
 
+
+/************************
+* WEEKLY CHART BEHAVIOR *
+************************/
+
+// Compute the Date object for Monday of the same week as "date".
+function getMonday(date) {
+	const d = new Date(date);
+	const day = d.getDay();
+	let diff;
+
+	// If Sunday (0), go back 6 days; otherwise offset to Monday (1).
+	if (day === 0) {
+		diff = -6;
+	} else {
+		diff = 1 - day;
+	}
+
+	d.setDate(d.getDate() + diff);
+	// Normalize to midnight.
+	d.setHours(0, 0, 0, 0);
+
+	return d;
+}
+
+// Holds the Chart.js instance so it can be updated later.
+let weeklyChartInstance = null;
+
+// Initialize the bar chart showing Monday to Sunday usage.
+function initWeeklyChart() {
+	const today = new Date();
+	const startOfWeek = getMonday(today);
+	const labels = [];
+
+	// Build labels array: 7 entries from Monday to Sunday in "DD/MM" format.
+	for (let i = 0; i < 7; i++) {
+		const d = new Date(startOfWeek);
+		d.setDate(startOfWeek.getDate() + i);
+		const day = String(d.getDate()).padStart(2, "0");
+		const month = String(d.getMonth() + 1).padStart(2, "0");
+		labels.push(`${day}/${month}`);
+	}
+
+	const ctx = document.getElementById("weekly-chart").getContext("2d");
+
+	// Instantiate the chart and manage its rendering.
+	weeklyChartInstance = new Chart(ctx, {
+		type: "bar",
+		data: {
+			labels: labels,
+			datasets: [{
+				data: [0, 0, 0, 0, 0, 0, 0],
+				backgroundColor: "rgb(15, 158, 123)",
+				borderWidth: 0,
+				borderRadius: 5
+			}]
+		},
+		options: {
+			animation: {
+				duration: 1000,
+				easing: "easeOutBounce"
+			},
+			plugins: {
+				legend: { display: false }
+			},
+			scales: {
+				x: {
+					type: "category",
+					offset: true,
+					grid: {
+						display: false,
+						drawBorder: false
+					},
+					ticks: {
+						display: true,
+						autoSkip: false,
+						maxRotation: 0,
+						minRotation: 0,
+						font: {
+							family: "system-ui, sans-serif",
+							size: 10,
+							weight: "500"
+						},
+						color: "rgb(115, 115, 115)"
+					},
+					title: { display: false }
+				},
+				y: {
+					display: false
+				}
+			},
+			elements: {
+				bar: {
+					borderSkipped: false
+				}
+			}
+		}
+	});
+}
+
+// Fetch latest stats and update the existing chart’s data points.
+function updateWeeklyChart() {
+	chrome.runtime.sendMessage("getTimerUsage", function (response) {
+		const stats = response.dailyUsage || {};
+		const today = new Date();
+		const startOfWeek = getMonday(today);
+		const newData = [];
+
+		// For each day Monday to Sunday, compute hours spent (rounded to 0.1h).
+		for (let i = 0; i < 7; i++) {
+			const d = new Date(startOfWeek);
+			d.setDate(startOfWeek.getDate() + i);
+			const key = d.toISOString().slice(0, 10);
+			const seconds = stats[key] || 0;
+			const hours = Math.round((seconds / 3600) * 10) / 10;
+			newData.push(hours);
+		}
+
+		// Replace dataset values and redraw chart.
+		if (weeklyChartInstance) {
+			weeklyChartInstance.data.datasets[0].data = newData;
+			weeklyChartInstance.update();
+		}
+	});
+}
+
+initWeeklyChart();
+
 updateTimer();
 updateTotalTimer();
 updateAverages();
+updateWeeklyChart();
 
 setInterval(updateTimer, 1000);
 setInterval(updateTotalTimer, 1000);
 setInterval(updateAverages, 1000);
+setInterval(updateWeeklyChart, 1000);
