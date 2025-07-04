@@ -63,7 +63,7 @@ function updateTimer() {
 	chrome.runtime.sendMessage("getTimerUsage", function (response) {
 		const stats = response.dailyUsage || {};
 		const now = new Date();
-		const todayKey = now.toISOString().slice(0, 10);
+		const todayKey = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
 		let todaySeconds = 0;
 
 		if (stats[todayKey]) {
@@ -117,6 +117,10 @@ function calculateAverages(stats) {
 
 			// Skip future or invalid dates.
 			if (entryDate > today || isNaN(entryDate.getTime())) {
+				continue;
+			}
+
+			if (value < 60) {
 				continue;
 			}
 
@@ -294,7 +298,12 @@ function initWeeklyChart() {
 				easing: "easeOutBounce"
 			},
 			plugins: {
-				legend: { display: false }
+				legend: {
+					display: false
+				},
+				tooltip: {
+					enabled: false
+				}
 			},
 			scales: {
 				x: {
@@ -302,7 +311,9 @@ function initWeeklyChart() {
 					offset: true,
 					grid: {
 						display: false,
-						drawBorder: false
+					},
+					border: {
+						display: false
 					},
 					ticks: {
 						display: true,
@@ -343,7 +354,7 @@ function updateWeeklyChart() {
 		for (let i = 0; i < 7; i++) {
 			const d = new Date(startOfWeek);
 			d.setDate(startOfWeek.getDate() + i);
-			const key = d.toISOString().slice(0, 10);
+			const key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 			const seconds = stats[key] || 0;
 			const hours = Math.round((seconds / 3600) * 10) / 10;
 			newData.push(hours);
@@ -366,5 +377,5 @@ updateWeeklyChart();
 
 setInterval(updateTimer, 1000);
 setInterval(updateTotalTimer, 1000);
-setInterval(updateAverages, 1000);
-setInterval(updateWeeklyChart, 1000);
+setInterval(updateAverages, 5000);
+setInterval(updateWeeklyChart, 5000);
