@@ -24,6 +24,17 @@
 	--primary-color: rgb(15, 158, 123);
 }
 
+/* SCROLLBAR */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	margin: 0 2px;
+	border-radius: 5px;
+	background-color: var(--primary-color);
+}
+
 /* GENERAL */
 body {
 	width: 320px;
@@ -45,6 +56,16 @@ h1 {
 
 h2 {
 	display: none;
+}
+
+hr {
+	margin: 15px 0;
+	border: none;
+	border-top: 1px solid var(--light-border-color);
+}
+
+hr.dark {
+	border-top: 1px solid var(--dark-border-color);
 }
 
 .mute {

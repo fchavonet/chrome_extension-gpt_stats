@@ -7,6 +7,7 @@ const targetedTags = [
 	"body",
 	"header",
 	"main",
+	"hr",
 	".mute",
 	".card",
 	"footer"

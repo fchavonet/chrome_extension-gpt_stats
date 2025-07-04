@@ -1,0 +1,1 @@
+console.log("✅ content.js successfully injected into the page.");
