@@ -22,17 +22,17 @@
 
 <body>
 	<header>
-		<div id="title-container">
+		<a id="title-container" href="https://github.com/fchavonet/chrome_extension-gpt_stats" target="_blank">
 			<img id="extension-icon" src="../images/icon-512.png" alt="Extension icon">
 			<h1>GPT Stats</h1>
-		</div>
+		</a>
 
 		<p class="mute">Your ChatGPT Usage</p>
 	</header>
 
 	<main>
 		<section>
-			<h2>Timers</h2>
+			<h2>Timer</h2>
 
 			<div class="card">
 				<span class="card-title">Total Time</span>
@@ -72,6 +72,8 @@
 		<hr>
 
 		<section>
+			<h2>Prompt</h2>
+
 			<div class="card">
 				<span class="card-title">Total Prompt</span>
 				<span id="total-prompt" class="prompt">_</span>
@@ -82,8 +84,12 @@
 
 	<footer>
 		<a class="social-media-link" href="https://github.com/fchavonet/chrome_extension-gpt_stats" target="_blank">
-			<i class="bi bi-github"></i> Project's GitHub Repository
+			<i class="bi bi-github"></i>GitHub Repository
 		</a>
+
+		<button id="reset-button" type="button">
+			<i class="bi bi-arrow-counterclockwise"></i>
+		</button>
 	</footer>
 </body>
 

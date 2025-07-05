@@ -6,6 +6,7 @@
 const targetedTags = [
 	"body",
 	"header",
+	"#title-container",
 	"main",
 	"hr",
 	".mute",
@@ -403,3 +404,30 @@ setInterval(updateTotalTimer, 1000);
 setInterval(updateAverages, 5000);
 setInterval(updateWeeklyChart, 5000);
 setInterval(updatePromptCounter, 1000);
+
+
+/**************************
+* RESET COUNTERS BEHAVIOR *
+**************************/
+
+const resetButton = document.getElementById("reset-button");
+
+if (resetButton) {
+	resetButton.addEventListener("click", function () {
+		const confirmReset = confirm("Are you sure you want to reset all counters?");
+		if (!confirmReset) {
+			return;
+		}
+
+		chrome.storage.local.set({
+			dailyUsage: {},
+			promptUsage: 0
+		}, function () {
+			updateTimer();
+			updateTotalTimer();
+			updateAverages();
+			updateWeeklyChart();
+			updatePromptCounter();
+		});
+	});
+}
