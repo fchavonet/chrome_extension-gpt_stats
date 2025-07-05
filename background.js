@@ -1,16 +1,23 @@
-/**************************
-* TIMER TRACKING BEHAVIOR *
-**************************/
+/**********************************
+* USER ACTIVITY TRACKING BEHAVIOR *
+**********************************/
 
 let tabIsActive = false;
 let timerIntervalId = null;
 
 // Check if the URL matches ChatGPT.
 function isGoodUrl(url) {
-	return url && url.startsWith("https://chatgpt.com");
+	if (!url) {
+		return false;
+	}
+
+	if (url.startsWith("https://chatgpt.com") || url.startsWith("https://chat.openai.com")) {
+		return true;
+	}
+
+	return false;
 }
 
-// Start counting time every second.
 function startTimer() {
 	if (timerIntervalId === null) {
 		timerIntervalId = setInterval(function () {
@@ -42,10 +49,13 @@ function stopTimer() {
 	}
 }
 
-// Ensure storage is initialized
+// Ensure storage is initialized.
 function initializeStorage() {
-	chrome.storage.local.get({ dailyUsage: {} }, function () {
-		// "dailyUsage" is ready.
+	chrome.storage.local.get({ dailyUsage: {}, promptUsage: 0 }, function (result) {
+		chrome.storage.local.set({
+			dailyUsage: result.dailyUsage || {},
+			promptUsage: result.promptUsage || 0
+		});
 	});
 }
 
@@ -108,12 +118,26 @@ chrome.windows.onFocusChanged.addListener(function (newWindowId) {
 	});
 });
 
-// Respond to "popup.js" asking for stored time data.
+// Respond to "popup.js" asking for stored data.
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 	if (message === "getTimerUsage") {
 		chrome.storage.local.get({ dailyUsage: {} }, function (result) {
 			sendResponse({ dailyUsage: result.dailyUsage });
 		});
 		return true;
+	}
+
+	if (message === "getPromptUsage") {
+		chrome.storage.local.get({ promptUsage: 0 }, function (result) {
+			sendResponse({ promptUsage: result.promptUsage });
+		});
+		return true;
+	}
+
+	if (message.type === "incrementPrompt") {
+		chrome.storage.local.get({ promptUsage: 0 }, function (data) {
+			chrome.storage.local.set({ promptUsage: data.promptUsage + 1 });
+		});
+		return;
 	}
 });

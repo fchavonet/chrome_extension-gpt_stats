@@ -369,14 +369,37 @@ function updateWeeklyChart() {
 	});
 }
 
+
+/***************************
+* PROMPT TRACKING BEHAVIOR *
+***************************/
+
+// Update prompt usage counter display.
+function updatePromptCounter() {
+	chrome.runtime.sendMessage("getPromptUsage", function (response) {
+		const promptDisplay = document.getElementById("total-prompt");
+
+		if (promptDisplay) {
+			promptDisplay.textContent = response.promptUsage;
+		}
+	});
+}
+
+
+/*****************************
+* INITIALIZATION & INTERVALS *
+*****************************/
+
 initWeeklyChart();
 
 updateTimer();
 updateTotalTimer();
 updateAverages();
 updateWeeklyChart();
+updatePromptCounter();
 
 setInterval(updateTimer, 1000);
 setInterval(updateTotalTimer, 1000);
 setInterval(updateAverages, 5000);
 setInterval(updateWeeklyChart, 5000);
+setInterval(updatePromptCounter, 1000);

@@ -16,6 +16,18 @@
 				"scripts/content.js"
 			],
 			"matches": [
+				"https://chat.openai.com/*",
+				"https://chatgpt.com/*"
+			]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"scripts/injected.js"
+			],
+			"matches": [
+				"https://chat.openai.com/*",
 				"https://chatgpt.com/*"
 			]
 		}

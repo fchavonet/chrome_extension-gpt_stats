@@ -171,6 +171,12 @@ section {
 	font-weight: 800;
 }
 
+.prompt {
+	font-family: monospace;
+	font-size: 24px;
+	font-weight: 500;
+}
+
 /* FOOTER */
 footer {
 	width: 100%;
