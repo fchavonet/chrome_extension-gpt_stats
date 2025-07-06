@@ -17,6 +17,10 @@
 			},
 			"*"
 		);
+
+		if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
+			chrome.runtime.sendMessage({ type: "incrementPrompt" });
+		}
 	}
 
 	const origFetch = window.fetch;

@@ -238,9 +238,9 @@ function updateAverages() {
 }
 
 
-/************************
-* WEEKLY CHART BEHAVIOR *
-************************/
+/******************************
+* WEEK START DATE CALCULATION *
+******************************/
 
 // Compute the Date object for Monday of the same week as "date".
 function getMonday(date) {
@@ -262,11 +262,16 @@ function getMonday(date) {
 	return d;
 }
 
+
+/***********************************
+* WEEKLY USAGE TIME CHART BEHAVIOR *
+***********************************/
+
 // Holds the Chart.js instance so it can be updated later.
-let weeklyChartInstance = null;
+let weeklyTimeChartInstance = null;
 
 // Initialize the bar chart showing Monday to Sunday usage.
-function initWeeklyChart() {
+function initWeeklyTimeChart() {
 	const today = new Date();
 	const startOfWeek = getMonday(today);
 	const labels = [];
@@ -280,10 +285,10 @@ function initWeeklyChart() {
 		labels.push(`${day}/${month}`);
 	}
 
-	const ctx = document.getElementById("weekly-chart").getContext("2d");
+	const ctx = document.getElementById("weekly-time-chart").getContext("2d");
 
 	// Instantiate the chart and manage its rendering.
-	weeklyChartInstance = new Chart(ctx, {
+	weeklyTimeChartInstance = new Chart(ctx, {
 		type: "bar",
 		data: {
 			labels: labels,
@@ -344,8 +349,8 @@ function initWeeklyChart() {
 	});
 }
 
-// Fetch latest stats and update the existing chart’s data points.
-function updateWeeklyChart() {
+// Update the weekly time chart with usage data (in hours) for each day from Monday to Sunday.
+function updateWeeklyTimeChart() {
 	chrome.runtime.sendMessage("getTimerUsage", function (response) {
 		const stats = response.dailyUsage || {};
 		const today = new Date();
@@ -363,9 +368,9 @@ function updateWeeklyChart() {
 		}
 
 		// Replace dataset values and redraw chart.
-		if (weeklyChartInstance) {
-			weeklyChartInstance.data.datasets[0].data = newData;
-			weeklyChartInstance.update();
+		if (weeklyTimeChartInstance) {
+			weeklyTimeChartInstance.data.datasets[0].data = newData;
+			weeklyTimeChartInstance.update();
 		}
 	});
 }
@@ -387,23 +392,133 @@ function updatePromptCounter() {
 }
 
 
+/*************************************
+* WEEKLY PROMPT COUNT CHART BEHAVIOR *
+*************************************/
+
+// Holds the Chart.js instance so it can be updated later.
+let weeklyPromptChartInstance = null;
+
+// Initialize the bar chart showing Monday to Sunday usage.
+function initWeeklyPromptChart() {
+	const today = new Date();
+	const startOfWeek = getMonday(today);
+	const labels = [];
+
+	// Build labels array: 7 entries from Monday to Sunday in "DD/MM" format.
+	for (let i = 0; i < 7; i++) {
+		const d = new Date(startOfWeek);
+		d.setDate(startOfWeek.getDate() + i);
+		const day = String(d.getDate()).padStart(2, "0");
+		const month = String(d.getMonth() + 1).padStart(2, "0");
+		labels.push(`${day}/${month}`);
+	}
+
+	const ctx = document.getElementById("weekly-prompt-chart").getContext("2d");
+
+	// Instantiate the chart and manage its rendering.
+	weeklyPromptChartInstance = new Chart(ctx, {
+		type: "bar",
+		data: {
+			labels: labels,
+			datasets: [{
+				data: [0, 0, 0, 0, 0, 0, 0],
+				backgroundColor: "rgb(15, 158, 123)",
+				borderWidth: 0,
+				borderRadius: 5
+			}]
+		},
+		options: {
+			animation: {
+				duration: 1000,
+				easing: "easeOutBounce"
+			},
+			plugins: {
+				legend: {
+					display: false
+				},
+				tooltip: {
+					enabled: false
+				}
+			},
+			scales: {
+				x: {
+					type: "category",
+					offset: true,
+					grid: {
+						display: false,
+					},
+					border: {
+						display: false
+					},
+					ticks: {
+						display: true,
+						autoSkip: false,
+						maxRotation: 0,
+						minRotation: 0,
+						font: {
+							family: "system-ui, sans-serif",
+							size: 10,
+							weight: "500"
+						},
+						color: "rgb(115, 115, 115)"
+					},
+					title: { display: false }
+				},
+				y: {
+					display: false
+				}
+			},
+			elements: {
+				bar: { borderSkipped: false }
+			}
+		}
+	});
+}
+
+// Update the weekly prompt chart with the number of prompts used each day from Monday to Sunday.
+function updateWeeklyPromptChart() {
+	chrome.storage.local.get({ dailyPromptCount: {} }, function (result) {
+		const stats = result.dailyPromptCount;
+		const today = new Date();
+		const startOfWeek = getMonday(today);
+		const newData = [];
+
+		for (let i = 0; i < 7; i++) {
+			const d = new Date(startOfWeek);
+			d.setDate(startOfWeek.getDate() + i);
+			const key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+			newData.push(stats[key] || 0);
+		}
+
+		if (weeklyPromptChartInstance) {
+			weeklyPromptChartInstance.data.datasets[0].data = newData;
+			weeklyPromptChartInstance.update();
+		}
+	});
+}
+
+
 /*****************************
 * INITIALIZATION & INTERVALS *
 *****************************/
 
-initWeeklyChart();
+initWeeklyTimeChart();
+initWeeklyPromptChart();
 
 updateTimer();
 updateTotalTimer();
 updateAverages();
-updateWeeklyChart();
+updateWeeklyTimeChart();
 updatePromptCounter();
+updateWeeklyPromptChart();
 
 setInterval(updateTimer, 1000);
 setInterval(updateTotalTimer, 1000);
-setInterval(updateAverages, 5000);
-setInterval(updateWeeklyChart, 5000);
+setInterval(updateAverages, 60000);
+setInterval(updateWeeklyTimeChart, 60000);
 setInterval(updatePromptCounter, 1000);
+setInterval(updateWeeklyPromptChart, 60000);
 
 
 /**************************
@@ -421,13 +536,15 @@ if (resetButton) {
 
 		chrome.storage.local.set({
 			dailyUsage: {},
-			promptUsage: 0
+			promptUsage: 0,
+			dailyPromptCount: {}
 		}, function () {
 			updateTimer();
 			updateTotalTimer();
 			updateAverages();
-			updateWeeklyChart();
+			updateWeeklyTimeChart()
 			updatePromptCounter();
+			updateWeeklyPromptChart();
 		});
 	});
 }

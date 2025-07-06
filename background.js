@@ -135,9 +135,24 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 	}
 
 	if (message.type === "incrementPrompt") {
-		chrome.storage.local.get({ promptUsage: 0 }, function (data) {
-			chrome.storage.local.set({ promptUsage: data.promptUsage + 1 });
+		const today = new Date();
+		const key =
+			today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+
+		chrome.storage.local.get(["dailyPromptCount", "promptUsage"], function (result) {
+			const dailyPromptCount = result.dailyPromptCount || {};
+			const promptUsage = result.promptUsage || 0;
+
+			if (!dailyPromptCount[key]) {
+				dailyPromptCount[key] = 0;
+			}
+
+			dailyPromptCount[key] += 1;
+
+			chrome.storage.local.set({
+				dailyPromptCount: dailyPromptCount,
+				promptUsage: promptUsage + 1
+			});
 		});
-		return;
 	}
 });
