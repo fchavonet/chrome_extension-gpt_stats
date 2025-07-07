@@ -11,6 +11,7 @@ const targetedTags = [
 	"hr",
 	".mute",
 	".card",
+	"#chart-nav-button",
 	"footer"
 ];
 
@@ -238,9 +239,45 @@ function updateAverages() {
 }
 
 
-/******************************
-* WEEK START DATE CALCULATION *
-******************************/
+/***************************
+* WEEK NAVIGATION BEHAVIOR *
+***************************/
+
+let weekOffsetTime = 0;
+let weekOffsetPrompt = 0;
+
+function getStartOfWeek(offset = 0) {
+	const now = new Date();
+	const monday = getMonday(now);
+	monday.setDate(monday.getDate() + (offset * 7));
+	return monday;
+}
+
+// Time chart navigation.
+document.getElementById("prev-time-week-btn").addEventListener("click", function () {
+	weekOffsetTime -= 1;
+	updateWeeklyTimeChart();
+});
+
+document.getElementById("next-time-week-btn").addEventListener("click", function () {
+	if (weekOffsetTime < 0) {
+		weekOffsetTime += 1;
+		updateWeeklyTimeChart();
+	}
+});
+
+// Prompt chart navigation.
+document.getElementById("prev-prompt-week-btn").addEventListener("click", function () {
+	weekOffsetPrompt -= 1;
+	updateWeeklyPromptChart();
+});
+
+document.getElementById("next-prompt-week-btn").addEventListener("click", function () {
+	if (weekOffsetPrompt < 0) {
+		weekOffsetPrompt += 1;
+		updateWeeklyPromptChart();
+	}
+});
 
 // Compute the Date object for Monday of the same week as "date".
 function getMonday(date) {
@@ -270,11 +307,11 @@ function getMonday(date) {
 // Holds the Chart.js instance so it can be updated later.
 let weeklyTimeChartInstance = null;
 
-// Initialize the bar chart showing Monday to Sunday usage.
+// Initialize the bar chart showing Monday to Sunday prompt counts.
 function initWeeklyTimeChart() {
-	const today = new Date();
-	const startOfWeek = getMonday(today);
+	const startOfWeek = getStartOfWeek(weekOffsetTime);
 	const labels = [];
+	const initialData = [];
 
 	// Build labels array: 7 entries from Monday to Sunday in "DD/MM" format.
 	for (let i = 0; i < 7; i++) {
@@ -283,6 +320,7 @@ function initWeeklyTimeChart() {
 		const day = String(d.getDate()).padStart(2, "0");
 		const month = String(d.getMonth() + 1).padStart(2, "0");
 		labels.push(`${day}/${month}`);
+		initialData.push(0);
 	}
 
 	const ctx = document.getElementById("weekly-time-chart").getContext("2d");
@@ -293,7 +331,7 @@ function initWeeklyTimeChart() {
 		data: {
 			labels: labels,
 			datasets: [{
-				data: [0, 0, 0, 0, 0, 0, 0],
+				data: initialData,
 				backgroundColor: "rgb(15, 158, 123)",
 				borderWidth: 0,
 				borderRadius: 5
@@ -353,22 +391,26 @@ function initWeeklyTimeChart() {
 function updateWeeklyTimeChart() {
 	chrome.runtime.sendMessage("getTimerUsage", function (response) {
 		const stats = response.dailyUsage || {};
-		const today = new Date();
-		const startOfWeek = getMonday(today);
+		const startOfWeek = getStartOfWeek(weekOffsetTime);
 		const newData = [];
+		const newLabels = [];
 
 		// For each day Monday to Sunday, compute hours spent (rounded to 0.1h).
 		for (let i = 0; i < 7; i++) {
 			const d = new Date(startOfWeek);
 			d.setDate(startOfWeek.getDate() + i);
-			const key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+			const day = String(d.getDate()).padStart(2, "0");
+			const month = String(d.getMonth() + 1).padStart(2, "0");
+			newLabels.push(`${day}/${month}`);
+
+			const key = d.getFullYear() + "-" + month + "-" + String(d.getDate()).padStart(2, "0");
 			const seconds = stats[key] || 0;
-			const hours = Math.round((seconds / 3600) * 10) / 10;
-			newData.push(hours);
+			newData.push(Math.round((seconds / 3600) * 10) / 10);
 		}
 
 		// Replace dataset values and redraw chart.
 		if (weeklyTimeChartInstance) {
+			weeklyTimeChartInstance.data.labels = newLabels;
 			weeklyTimeChartInstance.data.datasets[0].data = newData;
 			weeklyTimeChartInstance.update();
 		}
@@ -401,17 +443,17 @@ let weeklyPromptChartInstance = null;
 
 // Initialize the bar chart showing Monday to Sunday usage.
 function initWeeklyPromptChart() {
-	const today = new Date();
-	const startOfWeek = getMonday(today);
+	const startOfWeek = getStartOfWeek(weekOffsetPrompt);
 	const labels = [];
+	const initialData = [];
 
-	// Build labels array: 7 entries from Monday to Sunday in "DD/MM" format.
 	for (let i = 0; i < 7; i++) {
 		const d = new Date(startOfWeek);
 		d.setDate(startOfWeek.getDate() + i);
 		const day = String(d.getDate()).padStart(2, "0");
 		const month = String(d.getMonth() + 1).padStart(2, "0");
 		labels.push(`${day}/${month}`);
+		initialData.push(0);
 	}
 
 	const ctx = document.getElementById("weekly-prompt-chart").getContext("2d");
@@ -422,7 +464,7 @@ function initWeeklyPromptChart() {
 		data: {
 			labels: labels,
 			datasets: [{
-				data: [0, 0, 0, 0, 0, 0, 0],
+				data: initialData,
 				backgroundColor: "rgb(15, 158, 123)",
 				borderWidth: 0,
 				borderRadius: 5
@@ -480,18 +522,23 @@ function initWeeklyPromptChart() {
 function updateWeeklyPromptChart() {
 	chrome.storage.local.get({ dailyPromptCount: {} }, function (result) {
 		const stats = result.dailyPromptCount;
-		const today = new Date();
-		const startOfWeek = getMonday(today);
+		const startOfWeek = getStartOfWeek(weekOffsetPrompt);
 		const newData = [];
+		const newLabels = [];
 
 		for (let i = 0; i < 7; i++) {
 			const d = new Date(startOfWeek);
 			d.setDate(startOfWeek.getDate() + i);
-			const key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+			const day = String(d.getDate()).padStart(2, "0");
+			const month = String(d.getMonth() + 1).padStart(2, "0");
+			newLabels.push(`${day}/${month}`);
+
+			const key = d.getFullYear() + "-" + month + "-" + String(d.getDate()).padStart(2, "0");
 			newData.push(stats[key] || 0);
 		}
 
 		if (weeklyPromptChartInstance) {
+			weeklyPromptChartInstance.data.labels = newLabels;
 			weeklyPromptChartInstance.data.datasets[0].data = newData;
 			weeklyPromptChartInstance.update();
 		}
@@ -542,7 +589,7 @@ if (resetButton) {
 			updateTimer();
 			updateTotalTimer();
 			updateAverages();
-			updateWeeklyTimeChart()
+			updateWeeklyTimeChart();
 			updatePromptCounter();
 			updateWeeklyPromptChart();
 		});

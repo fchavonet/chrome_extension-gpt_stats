@@ -183,6 +183,34 @@ section {
 	font-weight: 500;
 }
 
+.chart-title-container {
+	margin-bottom: 5px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.chart-nav-button {
+	padding-top: 3px;
+	font-size: 10px;
+	color: var(--light-mute-text-color);
+	border: none;
+	background-color: transparent;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.chart-nav-button:hover {
+	color: var(--primary-color);
+	transform: scale(1.2);
+}
+
+.chart-nav-button.dark {
+	color: var(--dark-mute-text-color);
+}
+
 /* FOOTER */
 footer {
 	width: 100%;

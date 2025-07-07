@@ -64,7 +64,18 @@
 			</div>
 
 			<div class="card">
-				<span class="card-title">Weekly Chart</span>
+				<div class="chart-title-container">
+					<button id="prev-time-week-btn" class="chart-nav-button" aria-label="Previous time week">
+						<i class="bi bi-caret-left-fill"></i>
+					</button>
+
+					<span class="card-title">Weekly Chart</span>
+
+					<button id="next-time-week-btn" class="chart-nav-button" aria-label="Next time week">
+						<i class="bi bi-caret-right-fill"></i>
+					</button>
+				</div>
+
 				<canvas id="weekly-time-chart" width="290" height="135"></canvas>
 			</div>
 		</section>
@@ -81,7 +92,18 @@
 			</div>
 
 			<div class="card">
-				<span class="card-title">Weekly Prompt Chart</span>
+				<div class="chart-title-container">
+					<button id="prev-prompt-week-btn" class="chart-nav-button" aria-label="Previous prompt week">
+						<i class="bi bi-caret-left-fill"></i>
+					</button>
+
+					<span class="card-title">Weekly Prompt Chart</span>
+
+					<button id="next-prompt-week-btn" class="chart-nav-button" aria-label="Next prompt week">
+						<i class="bi bi-caret-right-fill"></i>
+					</button>
+				</div>
+
 				<canvas id="weekly-prompt-chart" width="290" height="135"></canvas>
 			</div>
 		</section>
