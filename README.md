@@ -28,9 +28,9 @@
 ## 📄 <span id="description">Description</span>
 
 GPT Stats is a lightweight Chrome extension that tracks [ChatGPT](https://chatgpt.com/) usage effortlessly. It automatically measures the time you spend, counts your prompts, and displays useful usage statistics, all in a clean and minimal popup interface.
-<br>
+<br><br>
 All data is stored locally in your browser using `chrome.storage.local`, ensuring full control, offline compatibility, and compliance with modern extension security standards.
-<br>
+<br><br>
 Whether you're a student, developer, productivity-focused, a data enthusiast, or simply curious about your usage habits, GPT Stats provides clear insights without compromising performance or privacy.
 
 ## 🎓 <span id="objectives">Objectives</span>
@@ -102,7 +102,7 @@ chrome://extensions/
 
 3. Each prompt you send is counted in real time.
    <br>
-   ( ⚠️ Make sure you're logged into your OpenAI account for prompt tracking to work! ⚠️ ).
+   ( ⚠️ Make sure you're logged into your OpenAI account for prompt tracking to work! ⚠️ )
 
 4. Click the extension icon to open the popup and view your usage statistics.
 
