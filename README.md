@@ -109,7 +109,6 @@ chrome://extensions/
 5. All data is stored locally and will persist across browser restarts.
 
 6. If you just want to test the extension without waiting, you can inject some mock data using the script below.
-> 📌 Right-click the opened extension → Inspect → open the Console tab, then paste and run the code.
 
 <details>
     <summary>
@@ -150,6 +149,8 @@ chrome://extensions/
 })();
 ```
 </details>
+
+> 📌 Right-click the opened extension → Inspect → open the Console tab, then paste and run the code.
 
 <p align="left">
     <picture>
