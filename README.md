@@ -35,7 +35,7 @@ All data is stored locally in your browser using `chrome.storage.local`, ensurin
 
 - Track the time spent on ChatGPT.
 - Count the number of prompts sent.
-- Provide a visual dashboard using Chart.js.
+- Provide a visual dashboard using `Chart.js`.
 - Persist usage data across browser sessions.
 - Ensure everything works offline, locally, with no external dependencies.
 
@@ -60,8 +60,8 @@ All data is stored locally in your browser using `chrome.storage.local`, ensurin
 | `manifest.json` | Chrome manifest file (V3) that declares extension metadata.               |
 | `background.js` | Background service worker, manages session timing.                        |
 | `popup`         | Contains the popup interface: `popup.html`, `popup.css` , and `popup.js`. |
-| `libs`          | Contains local dependencies.                                              |
 | `scripts`       | Placeholder for extra logic or utility functions.                         |
+| `libs`          | Contains local dependencies.                                              |
 | `images`        | Folder containing icons or UI images.                                     |
 | `README.md`     | The README file you are currently reading 😉.                             |
 
@@ -100,7 +100,7 @@ chrome://extensions/
 
 3. Each prompt you send is counted in real time.
    <br>
-   (⚠️ Make sure you're logged into your OpenAI account for prompt tracking to work! ⚠️).
+   ( ⚠️ Make sure you're logged into your OpenAI account for prompt tracking to work! ⚠️ ).
 
 4. Click the extension icon to open the popup and view your usage statistics.
 
@@ -148,8 +148,6 @@ chrome://extensions/
 })();
 ```
 </details>
-
-<br>
 
 <p align="left">
     <picture>
