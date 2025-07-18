@@ -34,10 +34,11 @@
 			url = resource.url;
 		}
 
-		if (
+		if (init && init.method === "POST" && (
 			url.includes("/backend-api/conversation") ||
+			url.includes("/backend-api/f/conversation") ||  // ← Nouveau endpoint
 			url.includes("/api/chat-process")
-		) {
+		)) {
 			promptCount += 1;
 			notifyExtension();
 		}
@@ -49,19 +50,18 @@
 	const origSend = XMLHttpRequest.prototype.send;
 
 	XMLHttpRequest.prototype.open = function (method, url) {
+		this._method = method;
 		this._url = url;
 
 		return origOpen.apply(this, arguments);
 	};
 
 	XMLHttpRequest.prototype.send = function (body) {
-		if (
-			this._url &&
-			(
-				this._url.includes("/backend-api/conversation") ||
-				this._url.includes("/api/chat-process")
-			)
-		) {
+		if (this._method === "POST" && this._url && (
+			this._url.includes("/backend-api/conversation") ||
+			this._url.includes("/backend-api/f/conversation") ||  // ← Nouveau endpoint
+			this._url.includes("/api/chat-process")
+		)) {
 			promptCount += 1;
 			notifyExtension();
 		}
