@@ -581,6 +581,26 @@ function enableOnPagePronptCounter() {
 }
 
 
+/********************************
+* WATER CONSUMPTION CALCULATION *
+********************************/
+
+// Calculate total water consumption based on prompt usage.
+function updateWaterConsumption() {
+	chrome.runtime.sendMessage("getPromptUsage", function (response) {
+		const totalPrompts = response.promptUsage || 0;
+		const waterPerPrompt = 25;
+		const totalWaterMl = totalPrompts * waterPerPrompt;
+
+		const waterDisplay = document.getElementById("total-water");
+
+		if (waterDisplay) {
+			waterDisplay.textContent = (totalWaterMl / 1000).toFixed(3) + "L";
+		}
+	});
+}
+
+
 /*****************************
 * INITIALIZATION & INTERVALS *
 *****************************/
@@ -596,6 +616,7 @@ updateAverages();
 updateWeeklyTimeChart();
 updatePromptCounter();
 updateWeeklyPromptChart();
+updateWaterConsumption();
 
 setInterval(updateTimer, 1000);
 setInterval(updateTotalTimer, 1000);
@@ -603,6 +624,7 @@ setInterval(updateAverages, 60000);
 setInterval(updateWeeklyTimeChart, 60000);
 setInterval(updatePromptCounter, 1000);
 setInterval(updateWeeklyPromptChart, 60000);
+setInterval(updateWaterConsumption, 1000);
 
 
 /**************************
@@ -629,6 +651,7 @@ if (resetButton) {
 			updateWeeklyTimeChart();
 			updatePromptCounter();
 			updateWeeklyPromptChart();
+			updateWaterConsumption();
 		});
 	});
 }

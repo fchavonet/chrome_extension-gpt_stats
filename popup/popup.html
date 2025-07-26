@@ -22,12 +22,14 @@
 
 <body>
 	<header>
-		<a id="title-container" href="https://fchavonet.github.io/web-gpt_stats_landing_page/" target="_blank">
-			<img id="extension-icon" src="../images/icon-512.png" alt="Extension icon">
-			<h1>GPT Stats</h1>
-		</a>
+		<a href="https://fchavonet.github.io/web-gpt_stats_landing_page/" target="_blank">
+			<div id="title-container">
+				<img id="extension-icon" src="../images/icon-512.png" alt="Extension icon">
+				<h1>GPT Stats</h1>
+			</div>
 
-		<p class="mute">Your ChatGPT Usage</p>
+			<p class="mute">Your ChatGPT Usage</p>
+		</a>
 	</header>
 
 	<main>
@@ -110,6 +112,29 @@
 				</div>
 
 				<canvas id="weekly-prompt-chart" width="290" height="135"></canvas>
+			</div>
+		</section>
+
+		<hr>
+
+		<section>
+			<h2>Environment</h2>
+
+			<div class="card">
+				<span class="card-title">Water Consumption</span>
+
+				<div>
+					<img height="16px" src="../images/water-drop.png" alt="Water drop image">
+
+					<span id="total-water" class="water">_</span>
+				</div>
+				
+				<p class="mute">Water consumed by your ChatGPT usage.</p>
+
+				<a class="info-container" href="https://news.ucr.edu/articles/2023/04/28/ai-programs-consume-large-volumes-scarce-water?utm_source=openai" target="_blank">
+					<i class="bi bi-info-circle mute info"></i>
+					<span class="mute info">Based on UC Riverside research (~25ml per prompt).</span>
+				</a>
 			</div>
 		</section>
 	</main>
