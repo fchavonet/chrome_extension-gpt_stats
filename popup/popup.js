@@ -546,12 +546,49 @@ function updateWeeklyPromptChart() {
 }
 
 
+/*****************************************
+* ENABLE ON-PAGE PROMPT COUNTER BEHAVIOR *
+*****************************************/
+
+// Handle checkbox for showing/hiding counter on ChatGPT page.
+function enableOnPagePronptCounter() {
+	const enableCounterCheckbox = document.getElementById("enable-counter-checkbox");
+
+	if (!enableCounterCheckbox) {
+		return;
+	}
+
+	chrome.storage.local.get({ enableCounterOnPage: false }, function (result) {
+		enableCounterCheckbox.checked = result.enableCounterOnPage;
+	});
+
+	enableCounterCheckbox.addEventListener("change", function () {
+		const enableCounter = enableCounterCheckbox.checked;
+
+		chrome.storage.local.set({ enableCounterOnPage: enableCounter });
+		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+			if (!tabs[0]) {
+				return;
+			}
+
+			chrome.tabs.sendMessage(tabs[0].id, { type: "toggleCounter", show: enableCounter }, function (response) {
+				if (chrome.runtime.lastError) {
+					console.log("Content script not ready:", chrome.runtime.lastError.message);
+				}
+			});
+		});
+	});
+}
+
+
 /*****************************
 * INITIALIZATION & INTERVALS *
 *****************************/
 
 initWeeklyTimeChart();
 initWeeklyPromptChart();
+
+enableOnPagePronptCounter();
 
 updateTimer();
 updateTotalTimer();

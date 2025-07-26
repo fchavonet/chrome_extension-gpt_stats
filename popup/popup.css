@@ -5,6 +5,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	user-select: none;
 }
 
 /* VARIABLES */
@@ -181,6 +182,26 @@ section {
 	font-family: monospace;
 	font-size: 24px;
 	font-weight: 500;
+}
+
+.checkbox-container {
+	margin-top: 5px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.checkbox-container input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+	accent-color: var(--primary-color);
+	cursor: pointer;
+}
+
+.checkbox-container label {
+	font-size: 10px;
+	font-weight: 200;
+	cursor: pointer;
 }
 
 .chart-title-container {
