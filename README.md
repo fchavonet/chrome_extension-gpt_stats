@@ -31,7 +31,7 @@ GPT Stats is a lightweight Chrome extension that tracks [ChatGPT](https://chatgp
 <br><br>
 All data is stored locally in your browser using `chrome.storage.local`, ensuring full control, offline compatibility, and compliance with modern extension security standards.
 <br><br>
-Whether you're a student, developer, productivity-focused, a data enthusiast, or simply curious about your usage habits and environmental impact, GPT Stats provides clear insights without compromising performance or privacy.
+Whether you're curious about your productivity, want to better understand your usage habits and environmental impact, or just love data, GPT Stats gives you clear insights without compromising performance or privacy.
 
 ## 🎓 <span id="objectives">Objectives</span>
 
