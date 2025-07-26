@@ -1,7 +1,7 @@
 {
 	"name": "GPT Stats",
 	"description": "Curious about how you use ChatGPT? This extension gives you simple and clean stats on your usage, right in your browser.",
-	"version": "1.1",
+	"version": "1.2",
 	"manifest_version": 3,
 	"permissions": [
 		"storage",
