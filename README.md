@@ -159,6 +159,8 @@ chrome://extensions/
     </picture>
 </p>
 
+You can also install the Chrome extension directly from the Chrome Web Store by clicking [here](https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll?hl=fr).
+
 ## <span id="whats-next">What's next?</span>
 
 - Implement CSV export of usage data.
