@@ -148,7 +148,6 @@ chrome://extensions/
 })();
 ```
 </details>
-<br>
 
 > Right-click the opened extension → Inspect → open the Console tab, then paste and run the code.
 
