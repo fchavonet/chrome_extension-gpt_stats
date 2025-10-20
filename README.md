@@ -127,7 +127,7 @@ chrome://extensions/
 	<picture>
 		<source media="(prefers-color-scheme: dark)" srcset="./assets/images/desktop_screenshot-dark.webp">
 		<source media="(prefers-color-scheme: light)" srcset="./assets/images/desktop_screenshot-light.webp">
-		<img src="./assets/images/desktop_screenshot-light.webp" alt="Desktop screenshot">
+		<img src="./assets/images/desktop-screenshot_light.webp" alt="Desktop screenshot">
 	</picture>
 </p>
 
