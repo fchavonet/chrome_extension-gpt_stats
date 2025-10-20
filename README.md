@@ -40,7 +40,7 @@ Whether you're curious about your productivity, want to better understand your u
 
 ## Installation & Usage
 
-### Installation:
+### Installation
 
 1. Clone this repository:
     - Open your preferred Terminal.
