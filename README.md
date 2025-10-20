@@ -1,29 +1,6 @@
 # GPT Stats
 
-## Table of contents
-
-<details>
-    <summary>
-        CLICK TO ENLARGE 😇
-    </summary>
-    <a href="#description">Description</a>
-    <br>
-    <a href="#objectives">Objectives</a>
-    <br>
-    <a href="#tech-stack">Tech stack</a>
-    <br>
-    <a href="#files-description">Files description</a>
-    <br>
-    <a href="#installation_and_how_to_use">Installation and how to use</a>
-    <br>
-    <a href="#whats-next">What's next?</a>
-    <br>
-    <a href="#thanks">Thanks</a>
-    <br>
-    <a href="#authors">Authors</a>
-</details>
-
-## <span id="description">Description</span>
+## Description
 
 GPT Stats is a lightweight Chrome extension that tracks [ChatGPT](https://chatgpt.com/) usage effortlessly. It automatically measures the time you spend, counts your prompts, and displays useful usage statistics, all in a clean and minimal popup interface.
 
@@ -31,7 +8,7 @@ All data is stored locally in your browser using `chrome.storage.local`, ensurin
 
 Whether you're curious about your productivity, want to better understand your usage habits and environmental impact, or just love data, GPT Stats gives you clear insights without compromising performance or privacy.
 
-## <span id="objectives">Objectives</span>
+## Objectives
 
 - Track the time spent on ChatGPT.
 - Count the number of prompts sent.
@@ -40,33 +17,28 @@ Whether you're curious about your productivity, want to better understand your u
 - Persist usage data across browser sessions.
 - Ensure everything works offline, locally, with no external dependencies.
 
-## <span id="tech-stack">Tech stack</span>
+## Tech Stack
 
-<p align="left">
-    <img src="https://img.shields.io/badge/HTML5-e34f26?logo=html5&logoColor=white&style=for-the-badge" alt="HTML5 badge">
-    <img src="https://img.shields.io/badge/CSS3-1572b6?logo=css3&logoColor=white&style=for-the-badge" alt="CSS3 badge">
-    <img src="https://img.shields.io/badge/JAVASCRIPT-f7df1e?logo=javascript&logoColor=black&style=for-the-badge" alt="JavaScript badge">
-    <img src="https://img.shields.io/badge/JSON-000000?logo=json&logoColor=white&style=for-the-badge" alt="JSON badge">
-    <img src="https://img.shields.io/badge/GIT-f05032?logo=git&logoColor=white&style=for-the-badge" alt="Git badge">
-    <img src="https://img.shields.io/badge/GITHUB-181717?logo=github&logoColor=white&style=for-the-badge" alt="GitHub badge">
-    <img src="https://img.shields.io/badge/MARKDOWN-000000?logo=markdown&logoColor=white&style=for-the-badge" alt="Markdown badge">
-    <img src="https://img.shields.io/badge/VS CODE-007acc?logo=data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIFRyYW5zZm9ybWVkIGJ5OiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4KPHN2ZyBmaWxsPSIjZmZmZmZmIiB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9Ii0wLjUgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KDTxnIGlkPSJTVkdSZXBvX2JnQ2FycmllciIgc3Ryb2tlLXdpZHRoPSIwIi8+Cg08ZyBpZD0iU1ZHUmVwb190cmFjZXJDYXJyaWVyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KDTxnIGlkPSJTVkdSZXBvX2ljb25DYXJyaWVyIj4KDTxwYXRoIGQ9Im0xNy44NTggMjMuOTk4LTkuNzcxLTkuNDg0LTUuODY2IDQuNDY1LTIuMjIxLTEuMTE1di0xMS43MTlsMi4yMzQtMS4xMjEgNS44NyA0LjQ2OSA5Ljc0Ny05LjQ5MyA1LjU4NyAyLjIzOXYxOS41MzFsLTUuNTc5IDIuMjN6bS0uNTYzLTE2LjE4Ni01LjU3NyA0LjE3MyA1LjU4IDQuMjAyem0tMTQuNTA3IDEuNjg1djUuMDE2bDIuNzg3LTIuNTI1eiIvPgoNPC9nPgoNPC9zdmc+&logoColor=white&style=for-the-badge" alt="VS Code badge">
-</p>
+![Chrome badge](https://img.shields.io/badge/CHROME-4285f4?logo=googlechrome&logoColor=white&style=for-the-badge)
+![HTML5 badge](https://img.shields.io/badge/HTML5-e34f26?logo=html5&logoColor=white&style=for-the-badge)
+![CSS3 badge](https://img.shields.io/badge/CSS3-1572b6?logo=css3&logoColor=white&style=for-the-badge)
+![JavaScript badge](https://img.shields.io/badge/JAVASCRIPT-f7df1e?logo=javascript&logoColor=black&style=for-the-badge)
+![JSON badge](https://img.shields.io/badge/JSON-000000?logo=json&logoColor=white&style=for-the-badge)
 
-## <span id="files-description">File description</span>
+## File Description
 
-| **FILES**       | **DESCRIPTION**                                                           |
+| **FILE**        | **DESCRIPTION**                                                           |
 | :-------------: | ------------------------------------------------------------------------- |
 | `assets`        | Contains the resources required for the repository.                       |
 | `manifest.json` | Chrome manifest file (V3) that declares extension metadata.               |
 | `background.js` | Background service worker, manages session timing.                        |
-| `popup`         | Contains the popup interface: `popup.html`, `popup.css` , and `popup.js`. |
+| `popup`         | Contains the popup interface: `popup.html`, `popup.css`, and `popup.js`.  |
 | `scripts`       | Placeholder for extra logic or utility functions.                         |
 | `libs`          | Contains local dependencies.                                              |
 | `images`        | Folder containing icons or UI images.                                     |
 | `README.md`     | The README file you are currently reading 😉.                             |
 
-## <span id="installation_and_how_to_use">Installation and how to use</span>
+## Installation & Usage
 
 ### Installation:
 
@@ -75,7 +47,7 @@ Whether you're curious about your productivity, want to better understand your u
     - Navigate to the directory where you want to clone the repository.
     - Run the following command:
 
-```bash
+```
 git clone https://github.com/fchavonet/chrome_extension-gpt_stats.git
 ```
 
@@ -85,7 +57,7 @@ git clone https://github.com/fchavonet/chrome_extension-gpt_stats.git
 chrome://extensions/
 ```
 
-3. Enable Developer mode.
+3. Enable Developer Mode (top-right corner).
    
 4. Click on "Load unpacked" and select the project folder.
 
@@ -93,7 +65,7 @@ chrome://extensions/
 
 > You can pin it to your browser toolbar via your extensions menu.
 
-### How to use:
+### Usage
 
 1. Open [ChatGPT](https://chatgpt.com/) in your browser.
 
@@ -114,7 +86,7 @@ chrome://extensions/
     Click here to see the code.
     </summary>
 
-```javascript
+```
 (function simulateUsageHistory() {
     const now = new Date();
     const dailyUsage = {};
@@ -151,28 +123,32 @@ chrome://extensions/
 
 > Right-click the opened extension → Inspect → open the Console tab, then paste and run the code.
 
-<p align="left">
-    <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="./assets/images/screenshot-dark.webp">
-        <source media="(prefers-color-scheme: light)" srcset="./assets/images/screenshot-light.webp">
-        <img src="./assets/images/screenshot-light.webp" alt="Screenshot">
-    </picture>
-</p>
+<table>
+	<tr>
+		<td align="center">
+			<picture>
+				<source media="(prefers-color-scheme: dark)" srcset="./assets/images/desktop_screenshot-dark.webp">
+				<source media="(prefers-color-scheme: light)" srcset="./assets/images/desktop_screenshot-light.webp">
+				<img src="./assets/images/desktop_screenshot-light.webp" alt="Desktop screenshot">
+			</picture>
+		</td>
+	</tr>
+</table>
 
 You can also install the Chrome extension directly from the Chrome Web Store by clicking [here](https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll?hl=fr).
 
-## <span id="whats-next">What's next?</span>
+## What's Next?
 
 - Implement CSV export of usage data.
 - Improve or redesign the mobile layout.
 - Add additional usage metrics.
 - Explore Firefox support.
 
-## <span id="thanks">Thanks</span>
+## Thanks
 
 - A big thank you to my friends Pierre and Yoann, always available to test and provide feedback on my projects.
 
-## <span id="authors">Authors</span>
+## Author(s)
 
 **Fabien CHAVONET**
 - GitHub: [@fchavonet](https://github.com/fchavonet)
