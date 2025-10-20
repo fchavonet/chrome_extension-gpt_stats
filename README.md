@@ -123,17 +123,13 @@ chrome://extensions/
 
 > Right-click the opened extension → Inspect → open the Console tab, then paste and run the code.
 
-<table>
-	<tr>
-		<td align="center">
-			<picture>
-				<source media="(prefers-color-scheme: dark)" srcset="./assets/images/desktop_screenshot-dark.webp">
-				<source media="(prefers-color-scheme: light)" srcset="./assets/images/desktop_screenshot-light.webp">
-				<img src="./assets/images/desktop_screenshot-light.webp" alt="Desktop screenshot">
-			</picture>
-		</td>
-	</tr>
-</table>
+<p align="center">
+	<picture>
+		<source media="(prefers-color-scheme: dark)" srcset="./assets/images/desktop_screenshot-dark.webp">
+		<source media="(prefers-color-scheme: light)" srcset="./assets/images/desktop_screenshot-light.webp">
+		<img src="./assets/images/desktop_screenshot-light.webp" alt="Desktop screenshot">
+	</picture>
+</p>
 
 You can also install the Chrome extension directly from the Chrome Web Store by clicking [here](https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll?hl=fr).
 
