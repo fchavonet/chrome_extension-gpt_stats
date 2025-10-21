@@ -20,7 +20,7 @@ Whether you're curious about your productivity, want to better understand your u
 ## Tech Stack
 
 ![HTML5 badge](https://img.shields.io/badge/HTML5-e34f26?logo=html5&logoColor=white&style=for-the-badge)
-![CSS3 badge](https://img.shields.io/badge/CSS3-1572b6?logo=css3&logoColor=white&style=for-the-badge)
+![CSS3 badge](https://img.shields.io/badge/CSS3-1572b6?logo=css&logoColor=white&style=for-the-badge)
 ![JavaScript badge](https://img.shields.io/badge/JAVASCRIPT-f7df1e?logo=javascript&logoColor=black&style=for-the-badge)
 ![JSON badge](https://img.shields.io/badge/JSON-000000?logo=json&logoColor=white&style=for-the-badge)
 ![Chrome badge](https://img.shields.io/badge/CHROME-4285f4?logo=googlechrome&logoColor=white&style=for-the-badge)
@@ -123,6 +123,8 @@ chrome://extensions/
 
 > Right-click the opened extension → Inspect → open the Console tab, then paste and run the code.
 
+You can also install the Chrome extension directly from the Chrome Web Store by clicking [here](https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll?hl=fr).
+
 <p align="center">
 	<picture>
 		<source media="(prefers-color-scheme: dark)" srcset="./assets/images/desktop_screenshot-dark.webp">
@@ -130,8 +132,6 @@ chrome://extensions/
 		<img src="./assets/images/desktop-screenshot_light.webp" alt="Desktop screenshot">
 	</picture>
 </p>
-
-You can also install the Chrome extension directly from the Chrome Web Store by clicking [here](https://chromewebstore.google.com/detail/gpt-stats/gpicllelofjlednfbblbmjdlolpjonll?hl=fr).
 
 ## What's Next?
 
