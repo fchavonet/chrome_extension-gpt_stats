@@ -19,11 +19,11 @@ Whether you're curious about your productivity, want to better understand your u
 
 ## Tech Stack
 
+![Chrome badge](https://img.shields.io/badge/CHROME-4285f4?logo=googlechrome&logoColor=white&style=for-the-badge)
 ![HTML5 badge](https://img.shields.io/badge/HTML5-e34f26?logo=html5&logoColor=white&style=for-the-badge)
 ![CSS3 badge](https://img.shields.io/badge/CSS3-1572b6?logo=css&logoColor=white&style=for-the-badge)
 ![JavaScript badge](https://img.shields.io/badge/JAVASCRIPT-f7df1e?logo=javascript&logoColor=black&style=for-the-badge)
 ![JSON badge](https://img.shields.io/badge/JSON-000000?logo=json&logoColor=white&style=for-the-badge)
-![Chrome badge](https://img.shields.io/badge/CHROME-4285f4?logo=googlechrome&logoColor=white&style=for-the-badge)
 
 ## File Description
 
@@ -127,9 +127,9 @@ You can also install the Chrome extension directly from the Chrome Web Store by 
 
 <p align="center">
 	<picture>
-		<source media="(prefers-color-scheme: dark)" srcset="./assets/images/desktop_screenshot-dark.webp">
-		<source media="(prefers-color-scheme: light)" srcset="./assets/images/desktop_screenshot-light.webp">
-		<img src="./assets/images/desktop-screenshot_light.webp" alt="Desktop screenshot">
+		<source media="(prefers-color-scheme: dark)" srcset="./assets/images/screenshots/desktop_screenshot-dark.webp">
+		<source media="(prefers-color-scheme: light)" srcset="./assets/images/screenshots/desktop_screenshot-light.webp">
+		<img src="./assets/images/screenshots/desktop-screenshot_light.webp" alt="Desktop screenshot">
 	</picture>
 </p>
 

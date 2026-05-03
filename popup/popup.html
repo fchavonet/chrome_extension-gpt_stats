@@ -2,152 +2,164 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>GPT Stats</title>
+    <title>GPT Stats</title>
 
-	<!-- CSS -->
-	<link rel="stylesheet" href="./popup.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./popup.css">
 
-	<!-- Bootstrap Icons -->
-	<link rel="stylesheet" href="../libs/bootstrap_icons/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="../libs/bootstrap_icons/bootstrap-icons.min.css">
 
-	<!-- Chart.js -->
-	<script src="../libs/chart.js/chart.min.js" defer></script>
+    <!-- Chart.js -->
+    <script src="../libs/chart.js/chart.min.js" defer></script>
 
-	<!-- Script -->
-	<script src="./popup.js" defer></script>
+    <!-- Script -->
+    <script src="./popup.js" defer></script>
 </head>
 
 <body>
-	<header>
-		<a href="https://fchavonet.github.io/web-gpt_stats_landing_page/" target="_blank">
-			<div id="title-container">
-				<img id="extension-icon" src="../images/icon-512.png" alt="Extension icon">
-				<h1>GPT Stats</h1>
-			</div>
+    <header>
+        <a href="https://fchavonet.github.io/full_stack-gpt_stats_landing_page/" target="_blank">
+            <div id="title-container">
+                <img id="extension-icon" src="../images/icon-512.png" alt="Extension icon">
+                <h1>GPT Stats</h1>
+            </div>
 
-			<p class="mute">Your ChatGPT Usage</p>
-		</a>
-	</header>
+            <p class="mute">Your ChatGPT Usage</p>
+        </a>
+    </header>
 
-	<main>
-		<section>
-			<h2>Timer</h2>
+    <main>
+        <section>
+            <h2>Timer</h2>
 
-			<div class="card">
-				<span class="card-title">Total Time</span>
-				<span id="total-timer" class="timer" aria-live="polite">00:00:00</span>
-				<p class="mute">Total time spent on ChatGPT.</p>
-			</div>
+            <div class="card">
+                <span class="card-title">Total Time</span>
+                <span id="total-timer" class="timer" aria-live="polite">00:00:00</span>
+                <p class="mute">Total time spent on ChatGPT.</p>
+            </div>
 
-			<div class="card">
-				<span class="card-title">Today's Time</span>
-				<span id="daily-timer" class="timer" aria-live="polite">00:00:00</span>
-				<p class="mute">Time spent on ChatGPT today.</p>
-			</div>
+            <div class="card">
+                <span class="card-title">Today's Time</span>
+                <span id="daily-timer" class="timer" aria-live="polite">00:00:00</span>
+                <p class="mute">Time spent on ChatGPT today.</p>
+            </div>
 
-			<div class="card-container">
-				<div class="card">
-					<span class="card-title">Daily Average</span>
-					<span id="daily-average" class="average">_</span>
-				</div>
+            <div class="card-container">
+                <div class="card">
+                    <span class="card-title">Daily Average</span>
+                    <span id="daily-average" class="average">_</span>
+                </div>
 
-				<div class="card">
-					<span class="card-title">Weekly Average</span>
-					<span id="weekly-average" class="average">_</span>
-				</div>
+                <div class="card">
+                    <span class="card-title">Weekly Average</span>
+                    <span id="weekly-average" class="average">_</span>
+                </div>
 
-				<div class="card">
-					<span class="card-title">Monthly Average</span>
-					<span id="monthly-average" class="average">_</span>
-				</div>
-			</div>
+                <div class="card">
+                    <span class="card-title">Monthly Average</span>
+                    <span id="monthly-average" class="average">_</span>
+                </div>
+            </div>
 
-			<div class="card">
-				<div class="chart-title-container">
-					<button id="prev-time-week-btn" class="chart-nav-button" aria-label="Previous time week">
-						<i class="bi bi-caret-left-fill"></i>
-					</button>
+            <div class="card">
+                <div class="chart-title-header">
+                    <div class="chart-title-container">
+                        <button id="prev-time-week-btn" class="chart-nav-button" aria-label="Previous time week">
+                            <i class="bi bi-caret-left-fill"></i>
+                        </button>
 
-					<span class="card-title">Weekly Chart</span>
+                        <span class="card-title">Weekly Chart</span>
 
-					<button id="next-time-week-btn" class="chart-nav-button" aria-label="Next time week">
-						<i class="bi bi-caret-right-fill"></i>
-					</button>
-				</div>
+                        <button id="next-time-week-btn" class="chart-nav-button" aria-label="Next time week">
+                            <i class="bi bi-caret-right-fill"></i>
+                        </button>
+                    </div>
 
-				<canvas id="weekly-time-chart" width="290" height="135"></canvas>
-			</div>
-		</section>
+                    <button id="today-time-week-btn" class="chart-today-button" type="button">
+                        Today
+                    </button>
+                </div>
 
-		<hr>
+                <canvas id="weekly-time-chart" width="290" height="135"></canvas>
+            </div>
+        </section>
 
-		<section>
-			<h2>Prompt</h2>
+        <hr>
 
-			<div class="card">
-				<span class="card-title">Total Prompt</span>
-				<span id="total-prompt" class="prompt">_</span>
-				<p class="mute">Total prompt number on ChatGPT.</p>
+        <section>
+            <h2>Prompt</h2>
 
-				<div class="checkbox-container">
-					<input type="checkbox" id="enable-counter-checkbox">
-					<label class="mute" for="enable-counter-checkbox">Enable on-page prompt counter.</label>
-				</div>
-			</div>
+            <div class="card">
+                <span class="card-title">Total Prompt</span>
+                <span id="total-prompt" class="prompt">_</span>
+                <p class="mute">Total prompt number on ChatGPT.</p>
 
-			<div class="card">
-				<div class="chart-title-container">
-					<button id="prev-prompt-week-btn" class="chart-nav-button" aria-label="Previous prompt week">
-						<i class="bi bi-caret-left-fill"></i>
-					</button>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="enable-counter-checkbox">
+                    <label class="mute" for="enable-counter-checkbox">Enable on-page prompt counter.</label>
+                </div>
+            </div>
 
-					<span class="card-title">Weekly Prompt Chart</span>
+            <div class="card">
+                <div class="chart-title-header">
+                    <div class="chart-title-container">
+                        <button id="prev-prompt-week-btn" class="chart-nav-button" aria-label="Previous prompt week">
+                            <i class="bi bi-caret-left-fill"></i>
+                        </button>
 
-					<button id="next-prompt-week-btn" class="chart-nav-button" aria-label="Next prompt week">
-						<i class="bi bi-caret-right-fill"></i>
-					</button>
-				</div>
+                        <span class="card-title">Weekly Prompt Chart</span>
 
-				<canvas id="weekly-prompt-chart" width="290" height="135"></canvas>
-			</div>
-		</section>
+                        <button id="next-prompt-week-btn" class="chart-nav-button" aria-label="Next prompt week">
+                            <i class="bi bi-caret-right-fill"></i>
+                        </button>
+                    </div>
 
-		<hr>
+                    <button id="today-prompt-week-btn" class="chart-today-button" type="button">
+                        Today
+                    </button>
+                </div>
 
-		<section>
-			<h2>Environment</h2>
+                <canvas id="weekly-prompt-chart" width="290" height="135"></canvas>
+            </div>
+        </section>
 
-			<div class="card">
-				<span class="card-title">Water Consumption</span>
+        <hr>
 
-				<div>
-					<img height="16px" src="../images/water-drop.png" alt="Water drop image">
+        <section>
+            <h2>Environment</h2>
 
-					<span id="total-water" class="water">_</span>
-				</div>
-				
-				<p class="mute">Water consumed by your ChatGPT usage.</p>
+            <div class="card">
+                <span class="card-title">Water Consumption</span>
 
-				<a class="info-container" href="https://news.ucr.edu/articles/2023/04/28/ai-programs-consume-large-volumes-scarce-water?utm_source=openai" target="_blank">
-					<i class="bi bi-info-circle mute info"></i>
-					<span class="mute info">Based on UC Riverside research (~25ml per prompt).</span>
-				</a>
-			</div>
-		</section>
-	</main>
+                <div>
+                    <img height="16px" src="../images/water-drop.png" alt="Water drop image">
 
-	<footer>
-		<a class="social-media-link" href="https://github.com/fchavonet/chrome_extension-gpt_stats" target="_blank">
-			<i class="bi bi-github"></i>GitHub Repository
-		</a>
+                    <span id="total-water" class="water">_</span>
+                </div>
 
-		<button id="reset-button" type="button">
-			<i class="bi bi-arrow-counterclockwise"></i>
-		</button>
-	</footer>
+                <p class="mute">Water consumed by your ChatGPT usage.</p>
+
+                <a class="info-container" href="https://news.ucr.edu/articles/2023/04/28/ai-programs-consume-large-volumes-scarce-water?utm_source=openai" target="_blank">
+                    <i class="bi bi-info-circle mute info"></i>
+                    <span class="mute info">Based on UC Riverside research (~25ml per prompt).</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a class="social-media-link" href="https://github.com/fchavonet/chrome_extension-gpt_stats" target="_blank">
+            <i class="bi bi-github"></i>GitHub Repository
+        </a>
+
+        <button id="reset-button" type="button">
+            <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+    </footer>
 </body>
 
 </html>
