@@ -115,11 +115,18 @@ header a {
 }
 
 #extension-icon {
+    width: 25px;
     height: 25px;
+    margin-right: 5px;
 }
 
 header p {
+    color: var(--light-mute-text-color);
     letter-spacing: 0.25em;
+}
+
+header p.dark {
+    color: var(--dark-mute-text-color);
 }
 
 /* MAIN */
