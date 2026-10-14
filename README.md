@@ -147,4 +147,7 @@ You can also install the Chrome extension directly from the Chrome Web Store by 
 ## Author(s)
 
 **Fabien CHAVONET**
-- GitHub: [@fchavonet](https://github.com/fchavonet)
+- [GitHub](https://github.com/fchavonet)
+- [itch.io](https://fchavonet.itch.io/)
+- [LinkedIn](https://www.linkedin.com/in/fchavonet/)
+- [Portfolio](https://www.fchavonet.dev)
